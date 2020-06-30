@@ -10,13 +10,18 @@ interface IInput {
     onChange: any;
     label?: string;
     error?: boolean;
+    value?: string;
 }
 
 const Input: FunctionComponent<IInput> = (props) =>  {
     return (
         <div className={`${props.error ? 'error' : ''} field`} >
             <label htmlFor={props.htmlFor}>{props.label}</label>
-            <input  {...props} onChange={props.onChange} />
+            {props.type !==  'textarea' ?
+                <input  {...props} onChange={props.onChange} /> : 
+                <textarea  {...props} onChange={props.onChange} />
+            }
+            
         </div>  
     )
 }

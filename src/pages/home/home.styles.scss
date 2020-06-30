@@ -1,4 +1,4 @@
-$image: url(/static/media/home-image.62fc4031.jpg), linear-gradient(180deg, #465879, #6b4949);
+$image: url('../../assets/home-image.jpg'), linear-gradient(180deg, #465879, #6b4949);
 $imageWithoutGradient: url(/static/media/home-image.62fc4031.jpg);
 
 .container {
@@ -10,12 +10,12 @@ $imageWithoutGradient: url(/static/media/home-image.62fc4031.jpg);
 }
 
 .black-white {
-    background: $image;
+    background: url('../../assets/home-image.jpg'), linear-gradient(180deg, #465879, #6b4949);
     transition: 1s;
 }
 
 .colorfull {
-    background: $imageWithoutGradient;
+    background: url('../../assets/home-image.jpg');
     transition: 1s;
 }
 
