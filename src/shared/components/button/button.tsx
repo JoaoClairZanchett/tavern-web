@@ -5,6 +5,7 @@ interface IButtonProps {
     children?: React.ReactNode;
     props?: any;
     onClick?: any;
+    disabled?: boolean;
 }
 
 const Button: FunctionComponent<IButtonProps> = ({ onClick, children, ...props }) => {

@@ -9,13 +9,14 @@ interface IInput {
     id: string;
     onChange: any;
     label?: string;
+    error?: boolean;
 }
 
 const Input: FunctionComponent<IInput> = (props) =>  {
     return (
-        <div className="field">
+        <div className={`${props.error ? 'error' : ''} field`} >
             <label htmlFor={props.htmlFor}>{props.label}</label>
-            <input {...props} onChange={props.onChange} />
+            <input  {...props} onChange={props.onChange} />
         </div>  
     )
 }

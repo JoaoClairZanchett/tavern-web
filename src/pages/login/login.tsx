@@ -1,8 +1,9 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 import "./login.styles.scss";
 import Input from "../../shared/components/input/input";
 import Button from "../../shared/components/button/button";
+import api from "../../shared/services/api";
 
 interface IUsuario {
   name: string;
@@ -13,16 +14,35 @@ interface IUsuario {
 
 const Login = () => {
   const [formData, setFormData] = useState<IUsuario>({} as IUsuario);
+  const [wrongPassword, setwrongPassword] = useState<boolean>(false);
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
+
+    if (name === 'confirmPassword') {
+      setwrongPassword(value !== formData.password);
+    }
+
     setFormData({
       ...formData,
       [name]: value,
     });
   }
 
-  function handleSubmit() {}
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    
+    const { name, email, adventurerName, password } = formData;
+
+    const data = {
+        name,
+        email,
+        adventurerName,
+        password
+    }
+
+    await api.post('user', data)
+  }
 
   return (
     <div className="home-container">
@@ -49,30 +69,28 @@ const Login = () => {
           type="password"
           name="password"
           id="password"
+          error={wrongPassword}
           onChange={handleInputChange}
           label="Senha"
         />
         <Input
-          htmlFor="password"
+          htmlFor="confirmPassword"
           type="password"
-          name="password"
-          id="password"
+          name="confirmPassword"
+          error={wrongPassword}
+          id="confirmPassword"
           onChange={handleInputChange}
           label="Confirmar Senha"
         />
         <Input
           htmlFor="adventurerName"
-          type="password"
+          type="text"
           name="adventurerName"
           id="adventurerName"
           onChange={handleInputChange}
           label="Nome de aventureiro"
         />
-        {/* <div className="form-footer"> */}
-            <Button>Criar conta</Button>
-
-            {/* <Button>Entrar com conta do Google</Button> */}
-        {/* </div> */}
+        <Button>Criar conta</Button>
       </form>
 
       <form onSubmit={handleSubmit}>
